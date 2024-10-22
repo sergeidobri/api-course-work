@@ -2,6 +2,7 @@ import requests
 import os.path
 from dotenv import load_dotenv
 from datetime import datetime
+from tqdm import tqdm
 
 dotenv_path = 'config.env'  # относительный путь до файла с токенами
 
@@ -63,7 +64,7 @@ class YandexVKConnector:
         """
         self._create_folder(folder_name)  # создание папки 
         photos = self.get_photos(user_id, photo_count)
-        for photo in photos:
+        for photo in tqdm(photos):
             likes_count = photo['likes']['count']
             date = str(datetime.fromtimestamp(photo['date'])).split()[0]
             year, month, day = date.split('-')
